@@ -1,9 +1,10 @@
 
 
-
+// show the date using moment at the top of the page
 var today = moment();
 $("#date").text(today.format("MMM Do, YYYY"));
 
+// list the possible working hours
 
 var hours = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 
@@ -15,7 +16,8 @@ function makeTimeblocks(hour, existingTodo = "") {
   if (currentHour === hour + 9) presentPastOrFuture = "present";
   var hourName = hours[hour];
   var existingTodo = localStorage.getItem(hourName);
-  // if (!existingTodo) existingTodo = "";
+
+  // create the time blocks for all hours
   console.log("SAVED TODO for ", hourName, existingTodo);
   $(".container").append(
     $(`
@@ -28,14 +30,15 @@ function makeTimeblocks(hour, existingTodo = "") {
     </div>`)
   );
 
-  //free feel to do the non-jquery equiv.
-}
 
+}
+// make the time blocks
 for (var i = 0; i < 9; i++) {
   makeTimeblocks(i);
 }
 
-//still need to add click event listeners so when a block is clicked, grabs the value from that textarea, and saves it in localStorage.
+
+// create event listener for each button
 var btns = document.querySelectorAll(".saveBtn");
 console.log(btns[0]); //ONLY SELECTS THE FIRST ELEMENT THAT MATCHES SELECTOR
 
@@ -43,8 +46,12 @@ for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", functionToHandleClickOnSaveBtn);
 }
 
+
+
+
 function functionToHandleClickOnSaveBtn(event) {
-  //do some logic here
+  // save the click
+
 
   var todoValue = event.target.parentNode.children[1].value;
   var todoKey = event.target.parentNode.children[1].id;
@@ -52,5 +59,13 @@ function functionToHandleClickOnSaveBtn(event) {
   console.log("key values ", todoKey, todoValue);
   //store the keyval pair in localStorage
   localStorage.setItem(todoKey, todoValue);
+  
+  //show schedule after submiting
+  var schedules = document.createElement("li")
+  schedules.textContent = todoKey + ": " + todoValue
+  getSchedule.appendChild(schedules)
+
+
 }
-//when app first loads, need to grab all existing todos and show on the page
+var getSchedule = document.getElementById("getSchedule")
+

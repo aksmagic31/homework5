@@ -1,12 +1,12 @@
 
-
+// display today's date using moments
 
 var today = moment();
 $("#date").text(today.format("MMM Do, YYYY"));
 
 
 var hours = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
-
+// make the time blocks
 function makeTimeblocks(hour, existingTodo = "") {
   //build some additional logic for if time is past present or future;
   var currentHour = new Date().getHours() - 10;
@@ -28,9 +28,8 @@ function makeTimeblocks(hour, existingTodo = "") {
     </div>`)
   );
 
-  //free feel to do the non-jquery equiv.
 }
-
+// make the time blocks 
 for (var i = 0; i < 9; i++) {
   makeTimeblocks(i);
 }
